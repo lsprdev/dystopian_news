@@ -1,4 +1,12 @@
 terraform {
+  backend "remote" {
+    organization = "lsprsystems"
+
+    workspaces {
+      name = "dystopian_news"
+    }
+  }
+
   required_providers {
     digitalocean = {
       source  = "digitalocean/digitalocean"
