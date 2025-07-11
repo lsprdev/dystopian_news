@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, status
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from models import Base
@@ -13,6 +14,15 @@ app = FastAPI(
     description="API para cadastro de e-mails e envio automático de newsletters geradas por IA.",
     version="1.0.0"
 )
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 Base.metadata.create_all(bind=engine)
 
 def get_db():

@@ -17,11 +17,26 @@ export default function NewsletterPage() {
     e.preventDefault()
     setIsLoading(true)
 
-    // Mock API call - simulate 2 second delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      const response = await fetch("http://localhost:8000/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      })
 
-    setIsLoading(false)
-    setIsSuccess(true)
+      if (!response.ok) {
+        throw new Error("Failed to subscribe")
+      }
+
+      setIsSuccess(true)
+    } catch (error) {
+      console.error("Subscription error:", error)
+      alert("Failed to subscribe. Please try again.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const resetForm = () => {
