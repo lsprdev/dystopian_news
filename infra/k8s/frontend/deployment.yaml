@@ -25,3 +25,8 @@ spec:
           limits:
             cpu: "500m"
             memory: "512Mi"
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: HOST
+              value: "0.0.0.0"
