@@ -18,7 +18,7 @@ export default function NewsletterPage() {
     setIsLoading(true)
 
     try {
-      const response = await fetch("/subscribe", {
+      const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
