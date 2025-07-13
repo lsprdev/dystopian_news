@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dystopian-news
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/lsprdev/dystopian_news
+    targetRevision: main
+    path: infra/k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dystopian
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

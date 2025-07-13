@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dystopian-frontend
+  namespace: dystopian
+  labels: { app: frontend }
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: frontend=docker.io/ogabrielpereiraa/dystopian-news-frontend:latest
+    argocd-image-updater.argoproj.io/frontend.update-strategy: digest
+    argocd-image-updater.argoproj.io/write-back-method: git
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: frontend } }
+  template:
+    metadata: { labels: { app: frontend } }
+    spec:
+      containers:
+      - name: frontend
+        image: docker.io/ogabrielpereiraa/dystopian-news-frontend:latest
+        ports: [{ containerPort: 3000 }]
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"

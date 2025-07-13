@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dystopian-backend
+  namespace: dystopian
+  labels: { app: backend }
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: backend=docker.io/ogabrielpereiraa/dystopian-news-backend:latest
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/write-back-method: git
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: backend } }
+  template:
+    metadata: { labels: { app: backend } }
+    spec:
+      containers:
+      - name: backend
+        image: docker.io/ogabrielpereiraa/dystopian-news-backend:latest
+        ports: [{ containerPort: 8000 }]
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: pg-conn
+              key: url
+        - name: RESEND_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: resend-api
+              key: key
