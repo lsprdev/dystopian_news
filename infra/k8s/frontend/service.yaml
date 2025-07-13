@@ -4,7 +4,7 @@ metadata:
   name: dystopian-frontend
   namespace: dystopian
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: frontend
   ports:
