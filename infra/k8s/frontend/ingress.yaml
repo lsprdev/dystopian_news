@@ -4,17 +4,12 @@ metadata:
   name: frontend-ingress
   namespace: dystopian
   annotations:
-    # ——— TLS & cert-manager ———
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-
-    # ——— Redirecionar todo HTTP para HTTPS ———
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-
-    # (opcional) comprime respostas
-    nginx.ingress.kubernetes.io/use-gzip: "true"
+    service.beta.kubernetes.io/do-loadbalancer-enable-https: "true"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-name: dn-lsx-li-letsencrypt
+    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
 
 spec:
-  ingressClassName: ingress-nginx      
+  ingressClassName: ingress-nginx
   rules:
   - host: dn.lsx.li
     http:
@@ -25,8 +20,8 @@ spec:
           service:
             name: dystopian-frontend
             port:
-              number: 80            # porta exposta no Service
+              number: 80
   tls:
   - hosts:
     - dn.lsx.li
-    secretName: dn-lsx-li-tls       # será preenchido automaticamente pelo cert-manager
+    secretName: dn-lsx-li-tls
