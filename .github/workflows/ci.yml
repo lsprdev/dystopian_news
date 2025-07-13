@@ -1,17 +1,23 @@
 name: build-and-push
 
 on:
+  # dispara automaticamente quando houver push na branch main
+  # e algum arquivo dentro de backend/, frontend/ ou do próprio workflow mudar
   push:
     branches: [ main ]
     paths:
       - "backend/**"
       - "frontend/**"
+      - ".github/workflows/**"
+
+  # permite executar manualmente pelo botão "Run workflow" no GitHub
+  workflow_dispatch:
 
 jobs:
   docker:
     runs-on: ubuntu-latest
 
-    # evita duplicação usando matrix
+    # constrói backend e frontend sem duplicar código
     strategy:
       matrix:
         include:
@@ -23,9 +29,10 @@ jobs:
             dockerfile: frontend/Dockerfile
 
     steps:
+      # checkout do código
       - uses: actions/checkout@v4
 
-      # cria um builder Buildx (opcional, mas recomendado p/ cache & multiplataforma)
+      # habilita Buildx (cache + multiplataforma)
       - uses: docker/setup-buildx-action@v3
 
       # login no Docker Hub
@@ -34,7 +41,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # build + push com DUAS tags (sha e latest)
+      # build e push com DUAS tags: sha e latest
       - name: Build & push ${{ matrix.name }}
         uses: docker/build-push-action@v5
         with:
