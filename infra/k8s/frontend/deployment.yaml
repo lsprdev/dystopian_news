@@ -5,7 +5,7 @@ metadata:
   namespace: dystopian
   labels: { app: frontend }
   annotations:
-    argocd-image-updater.argoproj.io/image-list: frontend=docker.io/ogabrielpereiraa/dystopian-news-frontend:latest
+    argocd-image-updater.argoproj.io/image-list: frontend=docker.io/ogabrielpereiraa/dystopian-news-frontend
     argocd-image-updater.argoproj.io/frontend.update-strategy: digest
     argocd-image-updater.argoproj.io/write-back-method: git
 spec:
@@ -17,6 +17,7 @@ spec:
       containers:
       - name: frontend
         image: docker.io/ogabrielpereiraa/dystopian-news-frontend:latest
+        imagePullPolicy: Always
         ports: [{ containerPort: 3000 }]
         env:
           - name: NODE_ENV
