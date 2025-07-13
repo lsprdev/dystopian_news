@@ -4,16 +4,16 @@ kind: Kustomization
 namespace: dystopian
 
 resources:
-  - namespace.yaml
-  - backend/deployment.yaml
-  - backend/service.yaml
-  - frontend/deployment.yaml
-  - frontend/service.yaml
+- namespace.yaml
+- backend/deployment.yaml
+- backend/service.yaml
+- frontend/deployment.yaml
+- frontend/service.yaml
 
 images:
-  - name: docker.io/ogabrielpereiraa/dystopian-news-backend
-    newName: docker.io/ogabrielpereiraa/dystopian-news-backend
-    newTag: placeholder
-  - name: docker.io/ogabrielpereiraa/dystopian-news-frontend
-    newName: docker.io/ogabrielpereiraa/dystopian-news-frontend
-    newTag: placeholder
+- name: docker.io/ogabrielpereiraa/dystopian-news-backend
+  newName: docker.io/ogabrielpereiraa/dystopian-news-backend
+  newTag: cf5cd0046a20ec39bd8419743f76686c43f90c2a
+- name: docker.io/ogabrielpereiraa/dystopian-news-frontend
+  newName: docker.io/ogabrielpereiraa/dystopian-news-frontend
+  newTag: cf5cd0046a20ec39bd8419743f76686c43f90c2a
