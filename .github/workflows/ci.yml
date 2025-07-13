@@ -60,6 +60,7 @@ jobs:
       - uses: imranismail/setup-kustomize@v2
 
       - name: Set new image tags in kustomization.yaml
+        working-directory: infra/k8s          
         run: |
           kustomize edit set image \
             docker.io/${{ secrets.DOCKERHUB_USERNAME }}/dystopian-news-backend=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/dystopian-news-backend:${{ github.sha }}
