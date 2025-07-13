@@ -4,23 +4,25 @@ FROM python:3.13-slim AS builder
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
-# Compiladores e headers p/ wheels nativas
+# Ferramentas mínimas para compilar wheels nativas
 RUN apt-get update && \
     apt-get install -y --no-install-recommends build-essential libpq-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Poetry 2.x (compatível com PEP 621)
+# Poetry 2.x (compatível com PEP 621 do pyproject)
 RUN pip install --no-cache-dir "poetry~=2.1"
 
-# Copia manifestos antes para cache
-COPY pyproject.toml poetry.lock* ./
+# ──⬇⬇──────── Cópia dos manifests (via caminho relativo ao repositório) ──⬇⬇──
+COPY backend/pyproject.toml backend/poetry.lock* ./
+# ──⬆⬆───────────────────────────────────────────────────────────────────────⬆⬆──
 
-# Instala TODAS as dependências padrão, sem venv
+# Instala todas as dependências padrão (sem criar venv)
 RUN poetry config virtualenvs.create false && \
     poetry install --no-root --no-ansi --no-interaction
 
-# Copia o resto do código-fonte
-COPY . .
+# ──⬇⬇──────── Cópia do código-fonte do backend ──⬇⬇──
+COPY backend/. .
+# ──⬆⬆────────────────────────────────────────────⬆⬆──
 
 ######################## 2. RUNTIME ########################
 FROM python:3.13-slim
@@ -33,7 +35,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends libpq5 && \
     rm -rf /var/lib/apt/lists/*
 
-# Copia dependências Python + código
+# Copia dependências Python e código compilado
 COPY --from=builder /usr/local /usr/local
 COPY --from=builder /app /app
 
