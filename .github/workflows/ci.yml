@@ -20,14 +20,14 @@ jobs:
       - name: Build & push backend
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./backend           # ← mudança
           file: backend/Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dystopian-news-backend:${{ github.sha }}
           push: true
       - name: Build & push frontend
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./frontend
           file: frontend/Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/dystopian-news-frontend:${{ github.sha }}
           push: true
