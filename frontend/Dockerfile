@@ -27,13 +27,10 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
-# NOVO: força hostname = 0.0.0.0
-ENV HOST=0.0.0.0
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
-# adiciona -H 0.0.0.0 se HOST não for lido
-CMD ["node", "server.js", "-H", "0.0.0.0", "-p", "3000"]
+CMD ["node", "server.js", "--hostname", "0.0.0.0", "--port", "3000"]
