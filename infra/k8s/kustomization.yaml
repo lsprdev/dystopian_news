@@ -9,3 +9,11 @@ resources:
   - backend/service.yaml
   - frontend/deployment.yaml
   - frontend/service.yaml
+
+images:
+  - name: docker.io/ogabrielpereiraa/dystopian-news-backend
+    newName: docker.io/ogabrielpereiraa/dystopian-news-backend
+    newTag: placeholder
+  - name: docker.io/ogabrielpereiraa/dystopian-news-frontend
+    newName: docker.io/ogabrielpereiraa/dystopian-news-frontend
+    newTag: placeholder
