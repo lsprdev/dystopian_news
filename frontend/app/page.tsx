@@ -64,7 +64,7 @@ export default function NewsletterPage() {
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-bold">Stay Informed</CardTitle>
             <CardDescription>
-              Ssubscribe to our newsletter for the latest updates and insights from the future.
+              Subscribe to our newsletter for the latest updates and insights from the future.
             </CardDescription>
           </CardHeader>
           <CardContent>
