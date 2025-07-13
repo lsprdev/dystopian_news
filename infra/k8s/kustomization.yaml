@@ -13,7 +13,7 @@ resources:
 images:
 - name: docker.io/ogabrielpereiraa/dystopian-news-backend
   newName: docker.io/ogabrielpereiraa/dystopian-news-backend
-  newTag: cf5cd0046a20ec39bd8419743f76686c43f90c2a
+  newTag: 5b8cb29a920ea32afaeef35e2caa117e592f7c55
 - name: docker.io/ogabrielpereiraa/dystopian-news-frontend
   newName: docker.io/ogabrielpereiraa/dystopian-news-frontend
-  newTag: cf5cd0046a20ec39bd8419743f76686c43f90c2a
+  newTag: 5b8cb29a920ea32afaeef35e2caa117e592f7c55
