@@ -4,9 +4,9 @@ metadata:
   name: dystopian-backend
   namespace: dystopian
 spec:
-  type: ClusterIP
   selector:
     app: backend
   ports:
-  - port: 8000
-    targetPort: 8000
+    - port: 8000
+      targetPort: 8000
+      protocol: TCP

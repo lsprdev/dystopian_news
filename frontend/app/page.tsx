@@ -18,7 +18,7 @@ export default function NewsletterPage() {
     setIsLoading(true)
 
     try {
-      const response = await fetch("/api/subscribe", {
+      const response = await fetch("http://dystopian-backend:8000/subscribe", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
