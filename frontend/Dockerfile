@@ -27,12 +27,13 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV PORT=3000
+# NOVO: força hostname = 0.0.0.0
+ENV HOST=0.0.0.0
 
-# Copia apenas o que é preciso para rodar em prod
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
-# Next já procura PORT
 EXPOSE 3000
-CMD ["node", "server.js"]
+# adiciona -H 0.0.0.0 se HOST não for lido
+CMD ["node", "server.js", "-H", "0.0.0.0", "-p", "3000"]
